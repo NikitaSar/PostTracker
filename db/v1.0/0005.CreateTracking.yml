@@ -1,0 +1,44 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0005.CreateTracking
+      author: User
+      changes:
+        - createTable:
+            tableName: tracking
+            columns:
+              - column:
+                  name: id
+                  type: Int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: date
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: postal_item_id
+                  type: Int
+              - column:
+                  name: postal_item_status_id
+                  type: Int
+
+        - addUniqueConstraint:
+            constraintName: tracking_uniq
+            tableName: tracking
+            columnNames: postal_item_id, postal_item_status_id
+
+        - addForeignKeyConstraint:
+            constraintName: tracking_postal_item_id_fk
+            baseTableName: tracking
+            baseColumnNames: postal_item_id
+            referencedTableName: postal_item
+            referencedColumnNames: id
+
+        - addForeignKeyConstraint:
+            constraintName: postal_item_status_id_fk
+            baseTableName: tracking
+            baseColumnNames: postal_item_status_id
+            referencedTableName: postal_item_status
+            referencedColumnNames: id

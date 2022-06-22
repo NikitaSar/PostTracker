@@ -1,0 +1,37 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0004.CreatePostalItem
+      author: User
+      changes:
+        - createTable:
+            tableName: postal_item
+            columns:
+              - column:
+                  name: id
+                  type: Int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: postal_item_type_id
+                  type: Int
+              - column:
+                  name: post_office_id
+                  type: Int
+              - column:
+                  name: address
+                  type: varchar(100)
+
+        - addForeignKeyConstraint:
+            constraintName: postal_item_type_id_fk
+            baseTableName: postal_item
+            baseColumnNames: postal_item_type_id
+            referencedTableName: postal_item_type
+            referencedColumnNames: id
+
+        - addForeignKeyConstraint:
+            constraintName: post_office_id_fk
+            baseTableName: postal_item
+            baseColumnNames: post_office_id
+            referencedTableName: post_office
+            referencedColumnNames: id
