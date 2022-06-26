@@ -1,5 +1,6 @@
 package PostTracker.services;
 
+import PostTracker.handlers.AlreadyExistsException;
 import PostTracker.models.PostOffice;
 import PostTracker.repositories.PostOfficeRepository;
 import PostTracker.services.PostOfficeService;
@@ -17,6 +18,9 @@ public class PostOfficeService {
     private final PostOfficeRepository postOfficeRepository;
 
     public void addOffice(PostOffice postOffice) {
+        if (postOfficeRepository.findByPostalCode(postOffice.getPostalCode()).isPresent())
+            throw new AlreadyExistsException(String.format("Office with postal code: '%s' already exists.",
+                    postOffice.getPostalCode()));
         postOfficeRepository.save(postOffice);
     }
 

@@ -58,6 +58,17 @@ public class PostOfficeControllerTest extends BaseControllerTest {
     }
 
     @Test
+    public void addPostOffice_alreadyExists() throws Exception {
+        var jsonContent = mapper.writeValueAsString(new PostOfficeDto(
+                "234567", "name 1", "address 1"));
+        var request = post(BASE_URL + "add")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonContent);
+        mvc.perform(request).andExpect(status().isCreated());
+        mvc.perform(request).andExpect(status().isConflict());
+    }
+
+    @Test
     public void addPostOffice_emptyBody() throws Exception {
         mvc.perform(
                 post(BASE_URL + "add").contentType(MediaType.APPLICATION_JSON)
