@@ -1,5 +1,6 @@
 package PostTracker.services;
 
+import PostTracker.handlers.AlreadyExistsException;
 import PostTracker.models.PostalItemType;
 import PostTracker.repositories.PostalItemTypeRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,8 @@ public class PostalItemTypeService {
     }
 
     public void addType(PostalItemType itemType) {
+        if (typeRepository.findByName(itemType.getName()).isPresent())
+            throw new AlreadyExistsException(String.format("Item type '%s' already exists;", itemType.getName()));
         typeRepository.save(itemType);
     }
 

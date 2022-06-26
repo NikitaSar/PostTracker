@@ -17,5 +17,10 @@ public class RestExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
+    @ExceptionHandler({ AlreadyExistsException.class })
+    public ResponseEntity<Object> handleAlreadyExistsException(AlreadyExistsException e) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMsg());
+    }
+
 
 }

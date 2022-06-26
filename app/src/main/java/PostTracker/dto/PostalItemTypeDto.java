@@ -2,7 +2,10 @@ package PostTracker.dto;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
+
 @Data
 public class PostalItemTypeDto {
-    public String name;
+    @NotNull
+    private String name;
 }
