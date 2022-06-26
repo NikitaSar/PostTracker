@@ -1,5 +1,6 @@
 package PostTracker.services;
 
+import PostTracker.handlers.AlreadyExistsException;
 import PostTracker.models.PostalItemStatus;
 import PostTracker.repositories.PostalItemStatusRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,8 @@ public class PostalItemStatusService {
     }
 
     public void addStatus(PostalItemStatus status) {
+        if (statusRepository.findByName(status.getName()).isPresent())
+            throw new AlreadyExistsException(String.format("Status '%s' already exists.", status.getName()));
         statusRepository.save(status);
     }
 

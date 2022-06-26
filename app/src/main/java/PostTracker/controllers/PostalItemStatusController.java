@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -23,7 +24,7 @@ public class PostalItemStatusController {
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addStatus(PostalItemStatusDto statusDto) {
+    public void addStatus(@Valid @RequestBody PostalItemStatusDto statusDto) {
         statusService.addStatus(DtoMapper.INSTANCE.fromPostalItemStatusDto(statusDto));
     }
 
