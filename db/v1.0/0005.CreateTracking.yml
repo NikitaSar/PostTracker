@@ -8,7 +8,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: Int
+                  type: bigint
                   autoIncrement: true
                   constraints:
                     primaryKey: true
@@ -19,13 +19,13 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: postal_item_id
-                  type: Int
+                  type: bigint
               - column:
                   name: postal_item_status_id
-                  type: Int
+                  type: bigint
 
         - addUniqueConstraint:
-            constraintName: tracking_uniq
+            constraintName: tracking_unique
             tableName: tracking
             columnNames: postal_item_id, postal_item_status_id
 
