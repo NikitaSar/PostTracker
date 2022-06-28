@@ -14,10 +14,12 @@ password=<DB_PASS>
 ```shell
 cd db
 liquibase update
+cd ../
 gradle build
 ```
 3. Запуск контейнера с помощью docker-compose:
 ```yaml
+# docker-compose.yml file
 version: '3.3'
 services:
   posttracker:
